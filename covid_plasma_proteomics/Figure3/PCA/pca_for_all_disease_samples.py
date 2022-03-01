@@ -277,5 +277,3 @@ plt.yticks(fontsize=20)
 
 plt.subplots_adjust(left=0.12,bottom=0.13,right=0.6)
 plt.show()
-
-print(len(myPSM_filter_df))
