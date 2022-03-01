@@ -2,6 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 from upsetplot import generate_counts
+from upsetplot import plot
 
 
 path="/home/ali/Desktop/results_covid_18_1_22_new_healthy/Figure2/Figure 2E/SupplementaryTable1.xlsx"
@@ -89,16 +90,11 @@ font = {'family' : 'normal',
 
 matplotlib.rc('font', **font)
 
-from upsetplot import plot
+
 
 plot(s,facecolor="gray", element_size=20)
 
 
-
-from matplotlib import pyplot
 plt.ylabel("Intersection Size",fontsize=20)
 plt.yticks(fontsize=20)
-# plt.legend(fontsize=20)
-
-
-pyplot.show()
+plt.show()
