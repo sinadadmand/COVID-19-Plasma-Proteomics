@@ -2,24 +2,10 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 from upsetplot import generate_counts
-example = generate_counts()
 
-
-
-
-
-
-# print(example)
-# from upsetplot import plot
-# plot(example)
-# from matplotlib import pyplot
-# pyplot.show()
-
-example.to_excel("/home/ali/Desktop/bibak.xlsx")
 
 path="/home/ali/Desktop/results_covid_18_1_22_new_healthy/Figure2/Figure 2E/SupplementaryTable1.xlsx"
 data= pd.read_excel(path)
-print(data)
 
 
 a = data[(data["Geyer at al"]=="-")&(data["Shu at al"]=="-")&(data["Shen at al"]=="-")
@@ -91,16 +77,6 @@ data_f.columns=["Geyer at al","Shu at al","Shen at al","Park at al","Demichev at
 print(data_frame)
 # Now let me re-arrange our raws!
 
-print()
-# print(name)
-#
-#
-
-# example= data_f.groupby([name[0],name[1],name[2],name[3],name[4]]).count()
-
-# print(data_f)
-
-print(data_f)
 
 s = data_f.groupby(data_f.columns.to_list()).size()
 
