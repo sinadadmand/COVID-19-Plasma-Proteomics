@@ -30,62 +30,6 @@ critical= pd.read_excel(path_critical_i)
 mode_severe=pd.read_excel(path_ms_recovery)
 critical_rec=pd.read_excel(path_c_recovery)
 
-#
-# zo= healthy[["H1","H2","H3","H4","H5","H6","H7","H8","H9"]]
-#
-# s=zo.std(axis=1)
-# m=zo.mean(axis=1)
-#
-# c=s/m
-# print(len(healthy))
-# healthy["std"]=c*100
-# healthy=healthy[healthy["std"]<=50]
-# healthy.reset_index(inplace=True)
-# print(len(healthy))
-# healthy=healthy[healthy.columns[1:]]
-# print(healthy)
-# print(healthy)
-#
-# zo= moderate[["M1_1","M1_2","M1_3","M2_1","M3_1"]]
-#
-# s=zo.std(axis=1)
-# m=zo.mean(axis=1)
-#
-# c=s/m
-# print(len(moderate))
-# moderate["std"]=c*100
-# moderate=moderate[moderate["std"]<=50]
-# moderate.reset_index(inplace=True)
-# print(len(moderate))
-# moderate=moderate[moderate.columns[1:]]
-#
-# zo= severe[["S1_1","S1_2","S1_3","S2_1","S2_2","S2_3","S3_1","S3_2"]]
-#
-# s=zo.std(axis=1)
-# m=zo.mean(axis=1)
-#
-# c=s/m
-# print(len(severe))
-# severe["std"]=c*100
-# severe=severe[severe["std"]<=50]
-# severe.reset_index(inplace=True)
-# print(len(severe))
-# severe=severe[severe.columns[1:]]
-#
-#
-# zo= critical[["C1_1","C1_2","C1_3","C2_1","C2_2","C2_3","C3_1","C3_2","C4_1","C4_2","C5_1","C5_2","C6_1","C6_2","C8_1","C8_2"]]
-#
-# s=zo.std(axis=1)
-# m=zo.mean(axis=1)
-#
-# c=s/m
-# print(len(critical))
-# critical["std"]=c*100
-# critical=critical[critical["std"]<=50]
-# critical.reset_index(inplace=True)
-# print(len(critical))
-# critical=critical[critical.columns[1:]]
-#
 
 
 
@@ -96,7 +40,6 @@ merged=pd.merge(merged,mode_severe, on="Accession", how="outer")
 merged=pd.merge(merged,critical_rec, on="Accession", how="outer")
 
 
-print(mode_severe)
 
 merged=merged[["Accession","genes_1","genes_2","genes_3","genes_4","genes_1R","genes1_RR","H1","H2","H3","H4","H5","M1_1","M1_2","M1_3","M2_1","M3_1","M4_1","M4_2","S1_1","S1_2","S1_3","S2_1"
      ,"S2_2","S2_3","S3_1","S3_2","C1_1","C1_2","C2_1","C2_2","C2_3","C3_1","C3_2","C4_1","C4_2","C5_1","C5_2",
@@ -104,9 +47,6 @@ merged=merged[["Accession","genes_1","genes_2","genes_3","genes_4","genes_1R","g
 
 
 
-# z.columns=["Accession","H1","H2","H3","H4","H5","H6","M1_1","M1_2","M1_3","M2_1","M3_1","S1_1","S1_2","S1_3","S2_1"
-#      ,"S2_2","S2_3","S3_1","S3_2","C1_1","C1_2","C1_3","C2_1","C2_2","C2_3","C3_1","C3_2","C4_1","C4_2","C5_1","C5_2","C6_1","C6_2"
-#      ,"C7_1","C7_2"]
 
 
 z=merged
@@ -118,30 +58,6 @@ z["genes_1"].fillna(z["genes_4"],inplace=True)
 z["genes_1"].fillna(z["genes_1R"],inplace=True)
 z["genes_1"].fillna(z["genes1_RR"],inplace=True)
 
-# z.to_excel("/home/a/Desktop/res.xlsx")
-
-# myPSM_filter_df["M1"]=(myPSM_filter_df["M1_1"]+myPSM_filter_df["M1_2"]+myPSM_filter_df["M1_3"])/3
-# myPSM_filter_df["M1"]=myPSM_filter_df[["M1_1","M1_2","M1_3"]].median(axis=1)
-
-
-# myPSM_filter_df["M2"]=(myPSM_filter_df["M2_1"])/1
-# myPSM_filter_df["M3"]=(myPSM_filter_df["M3_1"])/1
-# myPSM_filter_df["M4"]=myPSM_filter_df[["M4_1","M4_2"]].median(axis=1)
-
-
-# myPSM_filter_df["S1"]=myPSM_filter_df[["S1_1","S1_2","S1_3"]].median(axis=1)
-# myPSM_filter_df["S2"]=myPSM_filter_df[["S2_1","S2_2","S2_3"]].median(axis=1)
-# myPSM_filter_df["S3"]=myPSM_filter_df[["S3_1","S3_2"]].median(axis=1)
-
-
-
-
-# myPSM_filter_df["C1"]=myPSM_filter_df[["C1_1","C1_2"]].median(axis=1)
-# myPSM_filter_df["C2"]=myPSM_filter_df[["C2_1","C2_2","C2_3"]].median(axis=1)
-# myPSM_filter_df["C3"]=myPSM_filter_df[["C3_1","C3_2"]].median(axis=1)
-# myPSM_filter_df["C4"]=myPSM_filter_df[["C4_1","C4_2"]].median(axis=1)
-# myPSM_filter_df["C5"]=myPSM_filter_df[["C5_1","C5_2"]].median(axis=1)
-# myPSM_filter_df["C6"]=myPSM_filter_df[["C6_1","C6_2"]].median(axis=1)
 
 myPSM_filter_df=z
 myPSM_filter_df=myPSM_filter_df[["Accession","genes_1","H1","H2","H3","H4","H5","M1_1","M1_2","M1_3","M2_1","M3_1","M4_1","M4_2","S1_1","S1_2","S1_3","S2_1"
@@ -224,18 +140,8 @@ myPSM_filter_df["R9"]=myPSM_filter_df["C4R"]
 myPSM_filter_df["R10"]=myPSM_filter_df["C5R"]
 
 
-# print(myPSM_filter_df)
-#
-#
-#
-#
 myPSM_filter_df=myPSM_filter_df[["Accession","E1","E2","E3","E4","E5","E6","E7","E8","M1","M2","M3","M4","M5","M6"
                     ,"M7","M8","M9","M10","M11","M12","M13","R1","R2","R3","R4","R5","R6","R7","R8","R9","R10"]]
-#
-#
-#
-#
-print(myPSM_filter_df)
 
 zo= myPSM_filter_df[["Accession","E1","E2","E3","E4","E5","E6","E7","E8","M1","M2","M3","M4","M5","M6"
                     ,"M7","M8","M9","M10","M11","M12","M13","R1","R2","R3","R4","R5","R6","R7","R8","R9","R10"]]
@@ -244,21 +150,12 @@ s=zo[zo.columns[1:]].std(axis=1)
 m=zo[zo.columns[1:]].mean(axis=1)
 #
 c=s/m
-print(len(myPSM_filter_df))
-
-# myPSM_filter_df["std"]=c*100
-# myPSM_filter_df=myPSM_filter_df[(myPSM_filter_df["std"]>50)]
-# myPSM_filter_df.reset_index(inplace=True)
 
 z= myPSM_filter_df.dropna(thresh=len(z.T)*(0.3))
 
 z.fillna(0.01,inplace=True)
 z.reset_index(inplace=True)
 myPSM_filter_df=z[z.columns[1:]]
-print(myPSM_filter_df)
-
-
-print(myPSM_filter_df)
 
 
 myPSM_filter_df.to_excel("/home/ali/Desktop/heatmap_after_80percent_filtration.xlsx")
@@ -266,7 +163,6 @@ myPSM_filter_df.to_excel("/home/ali/Desktop/heatmap_after_80percent_filtration.x
 
 myPSM_filter_df=myPSM_filter_df[myPSM_filter_df.columns[1:]]
 
-print(myPSM_filter_df)
 
 
 
@@ -333,27 +229,6 @@ from matplotlib.patches import Patch
 
 handles2=[Patch(facecolor="darkturquoise"),Patch(facecolor="orange"),Patch(facecolor="brown")]
 
-# a=plt.legend(handles,["Early Infection","Maximum Infection","Post-Infection"],title="Time",bbox_to_anchor=(0.7,0.57),bbox_transform=plt.gcf().transFigure,loc='upper right',prop={'size':11},title_fontsize=11)
-# a2=plt.legend(handles2,["Early Infection","Maximum Infection","Post-Infection"],title="Type",bbox_to_anchor=(0.67,0.75),bbox_transform=plt.gcf().transFigure,loc='upper right',prop={'size':11},title_fontsize=11)
-
-# plt.gca().add_artist(a)
-
-
-#
-#
-#
-# # # ax.annotate("P5",(component0[10]+0.15,component1[10]+0.1),fontsize=20)
-# # # ax.annotate("P6",(component0[11]-0.55,component1[11]+0.2),fontsize=20)
-# # # ax.annotate("P7",(component0[12]+0.45,component1[12]-0.5),fontsize=20)
-# # # ax.annotate("P8",(component0[13]+0.35,component1[13]+0.1),fontsize=20)
-# # # ax.annotate("P9",(component0[14]+0.1,component1[14]+0.2),fontsize=20)
-# # # ax.annotate("P10",(component0[15]+0.15,component1[15]+0.2),fontsize=20)
-# # # ax.annotate("P11",(component0[16]+0.15,component1[16]+0.2),fontsize=20)
-# # # ax.annotate("P12",(component0[17]+0.15,component1[17]+0.2),fontsize=20)
-# # # ax.annotate("P13",(component0[18]+0.35,component1[18]-0.3),fontsize=20)
-# # #
-# #
-# #
 plt.scatter([component0[0]],[component1[0]],marker='o',color="#DAC4F7",label="Early Infection")
 plt.scatter([component0[1]],[component1[1]],marker='o',color="#DAC4F7")
 plt.scatter([component0[2]],[component1[2]],marker='o',color="#DAC4F7")
@@ -388,28 +263,6 @@ plt.scatter([component0[27]],[component1[27]],marker='o',color="#D6F6DD")
 plt.scatter([component0[28]],[component1[28]],marker='o',color="#D6F6DD")
 plt.scatter([component0[29]],[component1[29]],marker='o',color="#D6F6DD")
 plt.scatter([component0[30]],[component1[30]],marker='o',color="#D6F6DD")
-# #
-# #
-# #
-# # # plt.scatter([component0[27]],[component1[27]],marker='^',color="brown")
-# # # plt.scatter([component0[28]],[component1[28]],marker='^',color="brown")
-# # # plt.scatter([component0[29]],[component1[29]],marker='^',color="brown")
-# # # plt.scatter([component0[30]],[component1[30]],marker='^',color="brown")
-# # # plt.scatter([component0[31]],[component1[31]],marker='^',color="brown")
-# # # plt.scatter([component0[32]],[component1[32]],marker='^',color="brown")
-# # # plt.scatter([component0[33]],[component1[33]],marker='^',color="brown")
-# # # plt.scatter([component0[34]],[component1[34]],marker='^',color="brown")
-# # # plt.scatter([component0[18]],[component1[18]],marker='^',color="brown")
-# #
-
-
-# marker_list=["*","^","o"]
-# string=["Early Infection","Maximum Infection","Post-Infection"]
-#
-# h = [plt.plot([],[], color="black", marker=marker_list[i],ls="")[0] for i in range(0,3)]
-#
-# print(h)
-# leg2= plt.legend(handles=h, labels=string,loc=(1.03,0.3),title="Time",prop={'size':15},title_fontsize=15)
 
 
 plt.xlabel("Principal Component 1", fontsize=20)
@@ -425,5 +278,4 @@ plt.yticks(fontsize=20)
 plt.subplots_adjust(left=0.12,bottom=0.13,right=0.6)
 plt.show()
 
-# print(len(z))
 print(len(myPSM_filter_df))
