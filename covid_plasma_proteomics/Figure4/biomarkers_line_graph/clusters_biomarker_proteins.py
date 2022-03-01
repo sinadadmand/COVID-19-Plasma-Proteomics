@@ -12,10 +12,6 @@ my_pathlist=["/home/ali/Desktop/combined_data/combined_filtered_healthy.xlsx",
              "/home/ali/Desktop/combined_data/combined_filtered_critical_recovery.xlsx"
              ]
 
-# healty=pd.read_excel(my_pathlist[0])
-# critical=pd.read_excel(my_pathlist[1])
-# recovery=pd.read_excel(my_pathlist[2])
-
 healty=pd.read_excel(my_pathlist[0])
 moderate=pd.read_excel(my_pathlist[1])
 severe=pd.read_excel(my_pathlist[2])
@@ -36,10 +32,7 @@ z=merged[["Accession","genes_1R","genes_1","genes_2","H1","H2","H3","H4","H5",
                          "C3R","C4R","C5R"]]
 
 z["genes_1"].fillna(z["genes_2"],inplace=True)
-# z["genes_1"].fillna(z["genes1R"],inplace=True)
 z["genes_1"].fillna(z["genes_1R"],inplace=True)
-# z["genes_1"].fillna(z["genes_3"],inplace=True)
-# z["genes_1"].fillna(z["genes_4"],inplace=True)
 
 z=z[["Accession","genes_1","H1","H2","H3","H4","H5",
                         "C1_1","C1_2","C2_1","C2_2","C2_3","C3_1","C3_2","C4_1","C4_2",
@@ -49,7 +42,6 @@ z=z[["Accession","genes_1","H1","H2","H3","H4","H5",
 
 
 
-z.to_excel("/home/ali/Desktop/convert_it.xlsx")
 myPSM_filter_df= z
 myPSM_filter_df.fillna(0.0001,inplace=True)
 myPSM_filter_df.reset_index(inplace=True)
@@ -59,13 +51,8 @@ list_of_proteins=["CLEC3B","MST1","MB","S100A9","ITIH2"]
 
 
 
-print(len(list_of_proteins))
 
 z=z[z["genes_1"].isin(list_of_proteins)]
-
-print(z)
-
-print(len(z))
 
 z["Healthy"]=z[["H1","H2","H3","H4","H5"]].mean(axis=1)
 z["Early Critical"]=z[["C3_1","C4_1",
@@ -84,7 +71,6 @@ z["Recover"]=np.log2(z["Recovery"]/z["Healthy"])
 
 names= z["genes_1"].to_list()
 
-z.to_excel("/home/ali/Desktop/birbakacanmi.xlsx")
 
 
 earl= z["Early"].to_list()
@@ -93,13 +79,7 @@ rec=z["Recover"].to_list()
 
 fig,ax=plt.subplots(figsize=(10,6))
 
-# print(names)
 
-print(z)
-
-#
-#
-print(len(earl))
 ax.plot(["Uninfected", "Early", "Inflammatory", "Recovery"], [0,earl[0], lat[0], rec[0]], color="darkgreen", alpha=1)
 ax.plot(["Uninfected", "Early", "Inflammatory", "Recovery"], [0,earl[1], lat[1], rec[1]], color="blue", alpha=1)
 ax.plot(["Uninfected", "Early", "Inflammatory", "Recovery"], [0,earl[2], lat[2], rec[2]], color="brown", alpha=1)
@@ -119,18 +99,8 @@ ax.annotate(names[1],(3.1,rec[1]),fontsize=14,color="blue")
 ax.annotate(names[2],(3.1,rec[2]),fontsize=14,color="brown")
 ax.annotate(names[3],(3.1,rec[3]-0.2),fontsize=14,color="orange")
 ax.annotate(names[4],(3.1,rec[4]+0.2),fontsize=14,color="m")
-# ax.annotate(names[5],(3.1,rec[5]),fontsize=14,color="gray")
-# ax.annotate(names[6],(3.1,rec[6]+0.1),fontsize=14,color="purple")
-# ax.annotate(names[7],(3.1,rec[7]-0.15),fontsize=14,color="black")
-# ax.annotate(names[8],(3.1,rec[8]+0.1),fontsize=14,color="black")
-# ax.annotate(names[9],(3.1,rec[9]),fontsize=14,color="darkgreen")
-# ax.annotate(names[10],(3.1,rec[10]+0.15),fontsize=14,color="brown")
-# ax.annotate(names[11],(3.1,rec[11]),fontsize=14,color="indigo")
-# ax.annotate(names[12],(3.1,rec[12]+0.2),fontsize=14,color="darkblue")
-# ax.annotate(names[13],(3.1,rec[13]),fontsize=14,color="steelblue")
 
 plt.xlim(0,3.5)
 plt.ylim(-3,7)
-# plt.legend(bbox_to_anchor=(0., 0.47, 1.3, 0.3),fontsize=20)
 
 plt.show()
