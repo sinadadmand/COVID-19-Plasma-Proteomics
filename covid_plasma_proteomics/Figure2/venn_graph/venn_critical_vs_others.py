@@ -6,8 +6,6 @@ critical_path= "/home/ali/Desktop/results_covid_18_1_22_new_healthy/Figure2/Figu
 moderate_path="/home/ali/Desktop/results_covid_18_1_22_new_healthy/Figure2/Figure2A/moderate_vs_healthy/moderate_healthy.xlsx"
 severe_path="//home/ali/Desktop/results_covid_18_1_22_new_healthy/Figure2/Figure2B/severe_vs_healthy/severe_healthy.xlsx"
 
-# shu_path="/home/a/Documents/shu.xlsx"
-# shen_path= "/home/a/Downloads/shen.xlsx"
 
 # Let me write the path of the proteins found in
 
@@ -26,26 +24,6 @@ only_severe=len(severe[(~severe["Accession"].isin(critical["Accession"]))&(~seve
 only_moderate=len(moderate[(~moderate["Accession"].isin(critical["Accession"]))&(~moderate["Accession"].isin(severe["Accession"]))])
 common=len(critical[(critical["Accession"].isin(severe["Accession"]))&(critical["Accession"].isin(moderate["Accession"]))])
 
-7
-
-only_critical=only_critical
-critical_moderate=critical_moderate
-critical_severe=critical_severe
-
-
-
-severe_moderate=severe_moderate
-only_severe=only_severe
-only_moderate=only_moderate
-common=common
-
-
-
-
-# critical_only=len(critical)-len(common)-len(critical_shu)-len(critical_shen)
-# shen_only=len(shen)-len(critical_shen)-len(common)-len(shen_shu)
-# shu_only=len(shu)-len(critical_shu)-len(common)-len(shen_shu)
-
 out= venn3(subsets= (only_critical,only_severe,critical_severe,only_moderate,critical_moderate,severe_moderate,common), set_labels=("Critical","Severe","Moderate"),alpha=0.5)
 
 for text in out.set_labels:
@@ -53,5 +31,3 @@ for text in out.set_labels:
 for text in out.subset_labels:
     text.set_fontsize(20)
 plt.show()
-#
-# print(common["Protein Name"])
