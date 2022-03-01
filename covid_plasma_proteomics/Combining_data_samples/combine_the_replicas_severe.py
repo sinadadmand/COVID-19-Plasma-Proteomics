@@ -115,14 +115,6 @@ list_control8=control8[(control8["genes"]=="ALB")|(control8["genes"]=="C3")|(con
 list_control8=statistics.mean(list_control8)
 
 
-# list_control1=np.median(np.array(control1['# PSMs'].tolist()))
-# list_control2=np.median(np.array(control2['# PSMs'].tolist()))
-# list_control3=np.median(np.array(control3['# PSMs'].tolist()))
-# list_control4=np.median(np.array(control4['# PSMs'].tolist()))
-# list_control5=np.median(np.array(control5['# PSMs'].tolist()))
-# list_control6=np.median(np.array(control6['# PSMs'].tolist()))
-# list_control7=np.median(np.array(control7['# PSMs'].tolist()))
-# list_control8=np.median(np.array(control8['# PSMs'].tolist()))
 
 
 # # Here, let me divide the PSMs of my data to median for the scaling!
@@ -145,25 +137,13 @@ z= pd.merge(z,control5, on="Accession", how="outer")
 z= pd.merge(z,control6, on="Accession", how="outer")
 z= pd.merge(z,control7, on="Accession", how="outer")
 z= pd.merge(z,control8, on="Accession", how="outer")
-# z= pd.merge(z,control9, on="Accession", how="outer")
-# z= pd.merge(z,control10, on="Accession", how="outer")
-# z= pd.merge(z,control11, on="Accession", how="outer")
-# z= pd.merge(z,control12, on="Accession", how="outer")
-# z= pd.merge(z,control13, on="Accession", how="outer")
-# z= pd.merge(z,control14, on="Accession", how="outer")
-# z= pd.merge(z,control15, on="Accession", how="outer")
-# z= pd.merge(z,control16, on="Accession", how="outer")
-# # z= pd.merge(z,control17, on="Accession", how="outer")
-# # # z= pd.merge(z,control18, on="Accession", how="outer")
-# #
+
 new_frame= z[z.columns[[3,9,26,17,34]]]
-print(new_frame)
 
 new_frame.columns=["Accession","S1_1","S1_3","S2_2","S3_1","S1_2","S2_1","S2_3","S3_2","genes1_1","genes1_3","genes2_2","genes3_1","genes1_2",
                    "genes2_1","genes2_3","genes3_2"]
 
 
-# # # # CRITICAL ONES
 new_frame["genes1_1"].fillna(new_frame["genes1_2"],inplace=True)
 new_frame["genes1_1"].fillna(new_frame["genes1_3"],inplace=True)
 new_frame["genes1_1"].fillna(new_frame["genes2_1"],inplace=True)
@@ -176,19 +156,4 @@ new_frame["genes1_1"].fillna(new_frame["genes3_2"],inplace=True)
 new_frame=new_frame[["Accession","genes1_1","S1_1","S1_2","S1_3","S2_1","S2_2","S2_3","S3_1","S3_2"]]
 
 
-# myPSM_filter_df= new_frame.dropna(thresh=len(new_frame.T)*(0.1428))
-#
-# # print(myPSM_filter_df["genes1_1"])
-# #
-# myPSM_filter_df.fillna(0.001,inplace=True)
-# myPSM_filter_df.reset_index(inplace=True)
-
-# combine_filtered=pd.DataFrame({"Accession":myPSM_filter_df["Accession"],"genes":myPSM_filter_df["gene1"],"first":myPSM_filter_df["PSM_1"],
-#                                "second":myPSM_filter_df["PSM_2"],"third":myPSM_filter_df["PSM_3"],"fourth":myPSM_filter_df["PSM_4"]
-#                                })
-
-# myPSM_filter_df=myPSM_filter_df[myPSM_filter_df.columns[1:]]
 new_frame.to_excel("/home/ali/Desktop/combined_filtered_severe.xlsx")
-# # # "fifth":myPSM_filter_df["PSM_5"],"sixth":myPSM_filter_df["PSM_6"],"seventh":myPSM_filter_df["PSM_7"],"eighth":myPSM_filter_df["PSM_8"]
-# # combine_filtered.to_excel("/home/a/Desktop/combined_filtered.xlsx")
-# #
