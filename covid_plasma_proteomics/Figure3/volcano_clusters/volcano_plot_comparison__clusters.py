@@ -66,53 +66,15 @@ searcher_p="/home/ali/Documents/projects/COVID_projects/results/last_version-202
 searcher_m="/home/ali/Documents/projects/COVID_projects/results/last_version-20211018T081343Z-001/last_version/moderate_healthy/moderate_healthy.xlsx"
 searcher_s="/home/ali/Documents/projects/COVID_projects/results/last_version-20211018T081343Z-001/last_version/severe_healthy/severe_healthy.xlsx"
 
-# second_p="/home/a/Desktop/covid_project_3_July/critical_severe/critical_severe.xlsx"
-# searche="/home/a/Desktop/regulation/critical/upregulated_ones.xlsx"
-# searcher_p="/home/a/Desktop/critical.xlsx"
-# search=pd.read_excel(searcher_p)
-# mode=pd.read_excel(searcher_m)
-# sev=pd.read_excel(searcher_s)
-#
-# search=pd.concat([search,mode,sev])
-
-# path_="/home/ali/Desktop/clusters/heatmap_after_80percent_filtration.xlsx"
-# search=pd.read_excel(path_)
-
-# second=pd.read_excel(second_p)
-
-# search=search[(search["p_values"]<=0.01)]
-
-
-# second=second[(second["log2(Mean(First/Second))"]>0.75)|(second["log2(Mean(First/Second))"]<-0.75)]
-
-# second=second[second["p_values"]<0.04]
-# search=search[(search["Accession"].isin(second["Accession"]))]
-#
-# search=search[(search["Accession"]!="P00738")&(search["Accession"]!="P0C0L5")]
-
-# sec=pd.read_excel(second_p)
-#print(search)
-# cuttoff5=["VWF","S100A9","QSOX1","IHH","IGKV4-1","IGHV5-10-1","IGHV3-20","IGHV2-70D","IGFBP2","F9","CD163"]
-# cuttoff4=['ITIH3','IGHD','IGKV1-27','IGKV4-1','IGFBP2','IGHV3-20','VWF','CST3','S100A9','IGHV2-70D','PKM',
-#           'MB','IHH','AZGP1','F9','IGHV1-24']
-#
-# print(myPSM_filter_df)
-# sec=sec[(sec["log2(Mean(First/Second))"]>0.75)|(sec["log2(Mean(First/Second))"]<-0.75)]
-
-
-# myPSM_filter_df=myPSM_filter_df[(myPSM_filter_df["Accession"].isin(search["Accession"]))]
 
 
 
 myPSM_filter_df.reset_index(inplace=True)
 myPSM_filter_df=myPSM_filter_df[myPSM_filter_df.columns[1:]]
-print(myPSM_filter_df)
+
 myPSM_filter_df.to_excel("/home/ali/Desktop/pca_data.xlsx")
 
 
-# sec.to_excel("/home/a/Desktop/nene.xlsx")
-print(len(myPSM_filter_df))
-#
 myPSM_filter_df["M1_1"]=myPSM_filter_df["M1_1"]
 myPSM_filter_df["M1_2"]=myPSM_filter_df["M1_2"]
 myPSM_filter_df["M1_3"]=myPSM_filter_df["M1_3"]
@@ -131,10 +93,9 @@ myPSM_filter_df["S2_2"]=myPSM_filter_df["S2_2"]
 myPSM_filter_df["S2_3"]=myPSM_filter_df["S2_3"]
 myPSM_filter_df["S3_1"]=myPSM_filter_df["S3_1"]
 myPSM_filter_df["S3_2"]=myPSM_filter_df["S3_2"]
-#
+
 myPSM_filter_df["C1_1"]=myPSM_filter_df["C1_1"]
 myPSM_filter_df["C1_2"]=myPSM_filter_df["C1_2"]
-
 myPSM_filter_df["C2_1"]=myPSM_filter_df["C2_1"]
 myPSM_filter_df["C2_2"]=myPSM_filter_df["C2_2"]
 myPSM_filter_df["C2_3"]=myPSM_filter_df["C2_3"]
@@ -200,22 +161,12 @@ myPSM_filter_df["R10"]=myPSM_filter_df["C5R"]
 myPSM_filter_df=myPSM_filter_df[["genes_1","H1","H2","H3","H4","H5","E1","E2","E3","E4","E5","E6","E7","E8","M1","M2","M3","M4","M5","M6","M7","M8",
                                  "M9","M10","M11","M12","M13","R1","R2","R3","R4","R5","R6","R7","R8","R9","R10"]]
 
-myPSM_filter_df.to_excel("/home/ali/Desktop/check_.xlsx")
-# p value compare 1
-
-
 
 healthy_samples= myPSM_filter_df[["H1","H2","H3","H4","H5"]]
 
 
-
-
-print(myPSM_filter_df)
-
 zz= myPSM_filter_df
-print(zz)
 
-# zz=zz[zz["genes_1"]=="ENO1"]
 
 cluster1=zz[["R10","R9","E5","M10","R8","E7","M12","E6","M11","E8","M13"]]
 
@@ -223,9 +174,6 @@ cluster2=zz[["M9","R7","M8","R6","M2","M3","E4","R4","M7","R5","E2","M4","R2","R
 
 a1_=cluster1.mean(axis=1)
 a2_=cluster2.mean(axis=1)
-
-print(a2_)
-print(a1_)
 
 
 tra_1=cluster1.T
@@ -237,17 +185,10 @@ zz["p_value"]= scipy.stats.ttest_ind(tra_1,tra_2,equal_var=True)[1]
 
 
 
-print(cluster1)
 cl_mean1= cluster1[cluster1.columns].mean(axis=1)
 cl_mean2= cluster2[cluster2.columns].mean(axis=1)
 
-
-print(healthy_samples.mean(axis=1))
-
-
-
 average= np.log2(cl_mean2/cl_mean1)
-print(average)
 
 zz["average"]=pd.Series(average)
 
@@ -302,16 +243,7 @@ for j in range(0,25):
     x_axis=lowest.iloc[j][39]
     y_axis=lowest.iloc[j][41]
     least7[lowest.iloc[j][1]]=[x_axis,y_axis]
-#
-#
-#
-# #
-# # print(len(df1_Int_valid))
-# # print(len(df1_Int_valid2))
-# # print(len(df1_Int_notvalid))
-# #
-# # print(df1_Int_valid2)
-#
+
 fig,ax=plt.subplots()
 
 plt.plot('average', 'log 10 pvalue',data=df1_Int_valid,linestyle='',marker='o', markersize=5.5,alpha=0.50,color='slateblue',label="Significantly higher abundant in Cluster 2 (n=106)")
@@ -342,8 +274,7 @@ ax.annotate(list(first_10.keys())[15],(list(first_10.values())[15][0]+0.15,list(
 ax.annotate(list(first_10.keys())[17],(list(first_10.values())[17][0]-0.15,list(first_10.values())[17][1]+0.17),fontsize=10)
 
 ax.annotate(list(first_10.keys())[18],(list(first_10.values())[18][0]-0.02,list(first_10.values())[18][1]+0.15),fontsize=10)
-# ax.annotate(list(first_10.keys())[19],(list(first_10.values())[19][0]-0.25,list(first_10.values())[19][1]+0.05),fontsize=8)
-# ax.annotate(list(first_10.keys())[20],(list(first_10.values())[20][0]+0.1,list(first_10.values())[20][1]-0.13),fontsize=8)
+
 ax.annotate(list(first_10.keys())[21],(list(first_10.values())[21][0]+0.1,list(first_10.values())[21][1]-0.2),fontsize=10)
 ax.annotate(list(first_10.keys())[22],(list(first_10.values())[22][0]+0.1,list(first_10.values())[22][1]),fontsize=10)
 ax.annotate(list(first_10.keys())[23],(list(first_10.values())[23][0]-0.15,list(first_10.values())[23][1]+0.23),fontsize=10)
