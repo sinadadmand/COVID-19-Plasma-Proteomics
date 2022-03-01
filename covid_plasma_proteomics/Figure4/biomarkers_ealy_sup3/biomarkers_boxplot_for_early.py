@@ -43,7 +43,6 @@ z["genes_1"].fillna(z["genes_1R"],inplace=True)
 z["genes_1"].fillna(z["genes1_RR"],inplace=True)
 
 
-print(z)
 
 
 z=z[["Accession","genes_1","H1","H2","H3","H4","H5",
@@ -55,26 +54,12 @@ z=z[["Accession","genes_1","H1","H2","H3","H4","H5",
                             "C3RR","C4RR","C5RR","C1RR","C2RR"]]
 
 
-# Moderate-Severe Early --> M1_1, M4_1, S1_1, S2_1
-
-# Critical Early --> C3_1, C4_1, C5_1, C6_1
-
-
-# earlyms-> 6, 9, 11, 14
-
-# latems ->  7, 8, 10, 12, 13, 15, 16
-
-
-
-# print(z)
 
 aa= pd.DataFrame({"a":["CLEC3B","MB","S100A9","ITIH2","MST1"]})
 
 myPSM_filter_df=z[z["genes_1"].isin(aa["a"])]
-#
-myPSM_filter_df.fillna(0.0001,inplace=True)
 
-print(myPSM_filter_df)
+myPSM_filter_df.fillna(0.0001,inplace=True)
 
 
 myPSM_filter_df.to_excel("/home/ali/Desktop/all_genes.xlsx")
@@ -83,12 +68,9 @@ myPSM_filter_df.to_excel("/home/ali/Desktop/all_genes.xlsx")
 which=4
 
 
-# myPSM_filter_df.to_excel("/home/ali/Desktop/overall.xlsx")
 
 average=myPSM_filter_df[["H1","H2","H3","H4","H5","M1_1","M4_1","S1_1","S2_1","C3_1","C4_1","C5_1","C6_1"]].mean(axis=1)
 std=myPSM_filter_df[["H1","H2","H3","H4","H5","M1_1","M4_1","S1_1","S2_1","C3_1","C4_1","C5_1","C6_1"]].std(axis=1)
-print(average)
-print(std)
 
 
 #### POST HOC TEST
@@ -173,10 +155,6 @@ myPSM_filter_df["C5_1"]=(myPSM_filter_df["C5_1"]-average)/std
 myPSM_filter_df["C6_1"]=(myPSM_filter_df["C6_1"]-average)/std
 
 
-# H5
-
-# "C6_1"
-
 healthy=myPSM_filter_df[["H1","H2","H3","H4","H5"]]
 
 severe_moderate_early=myPSM_filter_df[["M1_1","M4_1","S1_1","S1_2"]]
@@ -197,17 +175,6 @@ list_crearly=["Critical Early"]*3
 list_of_x=list_healthy+list_msearly+list_crearly
 numbers=healthy+severe_moderate_early+critical_early
 
-# # import random
-# # my_l=[]
-# # for each in numbers:
-# #     if each==0:
-# #         num= random.uniform(0.0,0.5)
-# #         my_l.append(num)
-# #     else:
-# #         my_l.append(each)
-# # print(my_l)
-# #
-#
 data_frame=pd.DataFrame({"log2(FC)":numbers,"Stages":list_of_x})
 data_frame.to_excel("/home/ali/Desktop/only_gene.xlsx")
 
@@ -232,35 +199,6 @@ plt.legend(bbox_to_anchor=(0., 0.48, 1.6, 0.3),fontsize=20)
 from statannot import add_stat_annotation
 
 a=["Early Infection","Late Infection","Post Infection"]
-# add_stat_annotation(ax,data=data_frame,x="Stages", y="log2(FC)",hue="Patients",
-#                     box_pairs=[(("Early","Critical"),("Early","Moderate-Severe")),
-#                                (("Late","Critical"),("Late","Moderate-Severe")),
-#                                (("Recovery","Critical"),("Recovery","Moderate-Severe"))],
-#                     test='Mann-Whitney', text_format='star', loc='inside', verbose=2)
-
-
-# import scipy
-#
-# first_analysis= scipy.stats.mannwhitneyu(A1,A3)
-# print(first_analysis)
-#
-# for i in range(0,3):
-#     f_ = data_frame[data_frame["Stages"] == a[i]]
-#     first_early = f_[f_["Patients"] == "Moderate-Severe"]["log2(FC)"].to_list()
-#     print(first_early)
-#
-#     s_ = data_frame[data_frame["Stages"] == a[i]]
-#     second_early = s_[s_["Patients"] == "Critical"]["log2(FC)"].to_list()
-#     print(second_early)
-#     k = scipy.stats.kruskal(first_early, second_early)[1]
-#     print(k)
-
-
-
-# add_stat_annotation(ax,data=data_frame,x="Stages", y="log2(FC)",
-#                     box_pairs=[("Healthy","Critical Early"),("Healthy","Moderate-Severe Early"),("Moderate-Severe Early","Critical Early")],
-#                     test='Kruskal', text_format='star', loc='inside', verbose=2)
-
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 plt.ylabel("z-scores",fontsize=20)
@@ -270,27 +208,8 @@ ax.set(xlabel=None)
 plt.text(0.9,4.5,"MB",fontsize=20)
 
 
-# plt.text(0.5,1.8,"ns",fontsize=15)
-# plt.text(1.48,2.1,"**",fontsize=15)
-# plt.text(0.92,2.43,"**",fontsize=15)
-
-
-# plt.axvline(x=0,ymin=0.76,ymax=0.79,color="black")
-# plt.axvline(x=1,ymin=0.76,ymax=0.79,color="black")
-# plt.axhline(y=1.71,xmin=0.167,xmax=0.5,color="black")
-#
-# plt.axvline(x=+1,ymin=0.83,ymax=0.86,color="black")
-# plt.axvline(x=2,ymin=0.83,ymax=0.86,color="black")
-# plt.axhline(y=2.05,xmin=0.5,xmax=0.833,color="black")
-#
-# plt.axvline(x=0.01,ymin=0.9,ymax=0.93,color="black")
-# plt.axvline(x=+2,ymin=0.9,ymax=0.93,color="black")
-# plt.axhline(y=2.38,xmin=0.17,xmax=0.833,color="black")
-
-
 plt.legend(loc="upper center", bbox_to_anchor=(0.47,1.13), ncol= 2,frameon=False,fontsize=18)
 plt.subplots_adjust(left=0.107,right=0.729,top=0.857)
-# plt.text(0.95,3.9,"MB",fontsize=20)
 
 plt.ylim(-2,4.3)
 
