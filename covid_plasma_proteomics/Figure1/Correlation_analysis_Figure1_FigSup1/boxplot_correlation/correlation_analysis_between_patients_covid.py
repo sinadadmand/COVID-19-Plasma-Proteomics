@@ -54,8 +54,6 @@ critical=critical[critical.columns[2:]]
 critical=critical[["C1_1","C1_2","C2_1","C2_2","C2_3","C3_1","C3_2","C4_1","C4_2","C5_1",
                     "C5_2","C6_1","C6_2"]]
 
-# critical.columns=["C1_1","C1_2","C2_1","C2_2","C2_3","C3_1","C3_2","C4_1","C4_2","C5_1",
-#                     "C5_2","C6_1","C6_2"]
 
 
 
@@ -69,8 +67,6 @@ correlate1=correlate1.where(np.tril(np.ones(correlate1.shape)).astype(np.bool))
 
 a= sns.heatmap(correlate1,cmap="YlGnBu",annot=False,annot_kws={"size":20})
 
-# a.figure.axes[-1].set_ylabel('Accuracy %', size=20)
-# plt.legend(fontsize=14)
 plt.xticks(fontsize=20,rotation=90)
 plt.yticks(fontsize=20,va="center",rotation=0)
 cbar= a.collections[0].colorbar
@@ -84,7 +80,6 @@ for j in range(0,len(correlate1.columns)):
 
 healthy_score = [x for x in overall4 if str(x) != 'nan' and str(x)!=str(1.0)]
 
-# sns.set(font_scale=8)
 
 
 plt.show()
