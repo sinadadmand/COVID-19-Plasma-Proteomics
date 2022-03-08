@@ -98,6 +98,13 @@ list_control4=statistics.mean(list_control4)
 list_control5=control5[(control5["genes"]=="ALB")|(control5["genes"]=="C3")|(control5["genes"]=="APOB")|(control5["genes"]=="A2M")|(control5["genes"]=="TF")|(control5["genes"]=="SERPINA1")|(control5["genes"]=="HP")]["# PSMs"].tolist()
 list_control5=statistics.mean(list_control5)
 
+control1["# PSMs"]=control1["# PSMs"].div(list_control1)
+control2["# PSMs"]=control2["# PSMs"].div(list_control2)
+control3["# PSMs"]=control3["# PSMs"].div(list_control3)
+control4["# PSMs"]=control4["# PSMs"].div(list_control4)
+control5["# PSMs"]=control5["# PSMs"].div(list_control5)
+
+
 
 # Let me merge the data!
 
